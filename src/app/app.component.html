@@ -1,0 +1,50 @@
+<ion-app>
+  <ion-menu contentId="main" menuId="first" side="start" type="overlay">
+    <ion-header mode="md">
+      <ion-toolbar color="primary" mode="md">
+        <!-- Mostrar ion-icon si no hay imagen -->
+        <ion-icon *ngIf="!img" size="large" slot="start" [routerLink]="['/perfil', usuarioId]"
+          name="person-circle-outline" style="padding-left: 10px;">
+        </ion-icon>
+
+        <!-- Mostrar img si hay una imagen definida -->
+        <!-- <div *ngIf="img" size="large" slot="start" [routerLink]="['/perfil', usuarioId]"
+          style="padding-left: 10px; width: 32px; height: 32px; ">
+
+          <img style="border-radius: 50px;" alt="icono usuario" [src]="img" />
+        </div> -->
+        <div class="contenedor">
+          <ion-avatar *ngIf="img">
+            <img alt="icono usuario" [src]="img" />
+          </ion-avatar>
+          <ion-title>{{name}}</ion-title>
+        </div>
+
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <div class="menu-container">
+        <ion-list class="menu-items">
+          <ion-menu-toggle *ngFor="let m of opciones">
+            <ion-item [routerLink]="m.redirecTo" detail="true">
+              <ion-icon size="large" slot="start" [name]="m.icon" color="dark"></ion-icon>
+              <ion-label>{{m.name}}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <ion-menu-toggle class="ultimo">
+          <ion-item [routerLink]="['/menu-inicio']" style="--border-color: transparent; --color: red;"
+          (click)="cerrar()">
+            <ion-icon size="large" slot="start" name="log-out-outline" color="red"></ion-icon>
+            <ion-label>cerrar sesión</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </div>
+    </ion-content>
+  </ion-menu>
+
+  <!-- activa el page al cual se necesita acceder a través del menú -->
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>
